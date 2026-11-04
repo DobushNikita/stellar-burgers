@@ -1,8 +1,10 @@
-import { IngredientsCategoryUI } from '@ui';
+import { IngredientsCategoryUI } from '../ui';
 import { useMemo } from 'react';
 
 import type { TIngredientsCategoryProps } from './type';
-import type { TConstructorState, TIngredient } from '@utils-types';
+import type { TConstructorIngredients, TIngredient } from '../../utils/types';
+import { useSelector } from '../../services/store';
+import { getConstructorItems } from '../../services/slices/constructorSlice';
 
 export const IngredientsCategory = ({
   title,
@@ -11,10 +13,7 @@ export const IngredientsCategory = ({
   ref,
 }: TIngredientsCategoryProps): React.JSX.Element => {
   // TODO: Взять переменную из стора
-  const burgerConstructor: TConstructorState = {
-    bun: null,
-    ingredients: [],
-  };
+  const burgerConstructor: TConstructorIngredients = useSelector(getConstructorItems);
 
   const ingredientsCounters = useMemo(() => {
     const { bun, ingredients } = burgerConstructor;

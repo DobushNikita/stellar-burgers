@@ -1,4 +1,4 @@
-import { ModalUI } from '@ui';
+import { ModalUI } from '../ui';
 import { memo, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 

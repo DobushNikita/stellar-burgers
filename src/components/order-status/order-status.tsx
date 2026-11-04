@@ -1,4 +1,4 @@
-import { OrderStatusUI } from '@ui';
+import { OrderStatusUI } from '../ui';
 
 import type { OrderStatusProps } from './type';
 
