@@ -48,7 +48,7 @@ export type TConstructorIngredients = {
 
 export type TConstructorState = {
   constructorItems: TConstructorIngredients;
-  };
+};
 
 export type TNewOrderState = {
   orderRequest: boolean;

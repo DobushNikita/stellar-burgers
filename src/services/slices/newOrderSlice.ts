@@ -1,29 +1,34 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+import { orderBurgerApi, type TNewOrderResponse } from '../../utils/burger-api';
+
 import type { TNewOrderState } from '../../utils/types';
 import type { RootState } from '../store';
-import { orderBurgerApi, type TNewOrderResponse } from '../../utils/burger-api';
 
 const initialState: TNewOrderState = {
   orderRequest: false,
   orderModalData: null,
 };
 
-export const orderBurger = createAsyncThunk<TNewOrderResponse, void, { state: RootState }>(
-  'newOrder/orderBurger',
-  (_, { getState }) => {
-    const { burgerConstructor: { constructorItems } } = getState();
+export const orderBurger = createAsyncThunk<
+  TNewOrderResponse,
+  void,
+  { state: RootState }
+>('newOrder/orderBurger', (_, { getState }) => {
+  const {
+    burgerConstructor: { constructorItems },
+  } = getState();
 
-    const bunId = constructorItems.bun?._id;
+  const bunId = constructorItems.bun?._id;
 
-    const ingredientIds = [
-      ...(bunId ? [bunId] : []),
-      ...constructorItems.ingredients.map((item) => item._id),
-      ...(bunId ? [bunId] : []),
-    ];
+  const ingredientIds = [
+    ...(bunId ? [bunId] : []),
+    ...constructorItems.ingredients.map((item) => item._id),
+    ...(bunId ? [bunId] : []),
+  ];
 
-    return orderBurgerApi(ingredientIds);
-  }
-)
+  return orderBurgerApi(ingredientIds);
+});
 
 const newOrderSlice = createSlice({
   name: 'newOrder',
@@ -50,10 +55,12 @@ const newOrderSlice = createSlice({
       .addCase(orderBurger.rejected, (state, action) => {
         state.orderRequest = false;
         console.error(action.error);
-      })
-  }
-})
+      });
+  },
+});
 
-export const { getOrderRequest, getOrderModalData } = newOrderSlice.getSelectors((state: RootState) => state.newOrder);
+export const { getOrderRequest, getOrderModalData } = newOrderSlice.getSelectors(
+  (state: RootState) => state.newOrder
+);
 export const newOrderReducer = newOrderSlice.reducer;
 export const { clearOrder } = newOrderSlice.actions;

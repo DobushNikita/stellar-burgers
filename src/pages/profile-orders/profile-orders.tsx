@@ -1,10 +1,14 @@
-import { fetchUserOrders, getIsOrdersLoading, getUserOrders } from '@/services/slices/userSlice';
+import {
+  fetchUserOrders,
+  getIsOrdersLoading,
+  getUserOrders,
+} from '@/services/slices/userSlice';
 import { useDispatch, useSelector } from '@/services/store';
-import type { TOrder } from '@/utils/types';
 import { Preloader } from '@ui';
 import { ProfileOrdersUI } from '@ui-pages';
-
 import { useEffect } from 'react';
+
+import type { TOrder } from '@/utils/types';
 
 export const ProfileOrders = (): React.JSX.Element => {
   /** TODO: взять переменную из стора */

@@ -1,9 +1,10 @@
+import { useParams } from 'react-router-dom';
+
 import { getIngredients } from '../../services/slices/ingredientsSlice';
 import { useSelector } from '../../services/store';
 import { Preloader, IngredientDetailsUI } from '../ui';
-import { useParams } from 'react-router-dom';
 
-export const IngredientDetails =  (): React.JSX.Element => {
+export const IngredientDetails = (): React.JSX.Element => {
   // TODO: Взять переменную из стора
   const { id } = useParams();
   const ingredients = useSelector(getIngredients);

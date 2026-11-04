@@ -1,4 +1,10 @@
-import type { RootState } from '../store';
+import {
+  createAsyncThunk,
+  createSlice,
+  isAnyOf,
+  type PayloadAction,
+} from '@reduxjs/toolkit';
+
 import {
   getOrdersApi,
   getUserApi,
@@ -8,14 +14,10 @@ import {
   updateUserApi,
 } from '../../utils/burger-api';
 import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
-import {
-  createAsyncThunk,
-  createSlice,
-  isAnyOf,
-  type PayloadAction,
-} from '@reduxjs/toolkit';
-import type { TUser, TUserState } from '../../utils/types';
+
 import type { TLoginData, TRegisterData } from '../../utils/burger-api';
+import type { TUser, TUserState } from '../../utils/types';
+import type { RootState } from '../store';
 
 const initialState: TUserState = {
   user: null,
@@ -33,9 +35,7 @@ const saveAuthTokens = (refreshToken: string, accessToken: string): void => {
 
 export const fetchUserOrders = createAsyncThunk('user/fetchUserOrders', getOrdersApi);
 
-export const logout = createAsyncThunk(
-  'user/logout', 
-  async () => {
+export const logout = createAsyncThunk('user/logout', async () => {
   await logoutApi();
   localStorage.removeItem('refreshToken');
   deleteCookie('accessToken');

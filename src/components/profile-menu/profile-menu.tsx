@@ -1,9 +1,10 @@
-import { logout } from '../../services/slices/userSlice';
-import { useDispatch } from '../../services/store';
-import { Preloader, ProfileMenuUI } from '../ui';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import { logout } from '../../services/slices/userSlice';
+import { useDispatch } from '../../services/store';
 import { Modal } from '../modal';
+import { Preloader, ProfileMenuUI } from '../ui';
 
 export const ProfileMenu = (): React.JSX.Element => {
   const { pathname } = useLocation();
@@ -18,8 +19,7 @@ export const ProfileMenu = (): React.JSX.Element => {
 
     setIsLogoutLoading(true);
 
-
-  try {
+    try {
       await dispatch(logout()).unwrap();
       navigate('/login');
     } catch (error) {
@@ -28,7 +28,7 @@ export const ProfileMenu = (): React.JSX.Element => {
     }
   };
 
-   return (
+  return (
     <>
       <ProfileMenuUI handleLogout={handleLogout} pathname={pathname} />
       {isLogoutLoading && (

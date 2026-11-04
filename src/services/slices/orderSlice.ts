@@ -1,7 +1,13 @@
-import type { TIngredient, TOrder, TOrderState } from '../../utils/types';
-import { createAsyncThunk, createSlice, type PayloadAction, type SerializedError } from '@reduxjs/toolkit';
-import type { RootState } from '../store';
 import { getOrderByNumberApi } from '@/utils/burger-api';
+import {
+  createAsyncThunk,
+  createSlice,
+  type PayloadAction,
+  type SerializedError,
+} from '@reduxjs/toolkit';
+
+import type { TIngredient, TOrder, TOrderState } from '../../utils/types';
+import type { RootState } from '../store';
 
 const initialState: TOrderState = {
   order: null,
@@ -60,10 +66,11 @@ const orderSlice = createSlice({
       .addCase(fetchOrder.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error;
-      })
-  }
-})
+      });
+  },
+});
 
-export const { getOrder, getIngredients, getIsLoading, getError } = orderSlice.getSelectors((state: RootState) => state.order);
+export const { getOrder, getIngredients, getIsLoading, getError } =
+  orderSlice.getSelectors((state: RootState) => state.order);
 export const orderReducer = orderSlice.reducer;
 export const { setOrder, setIngredients, setIsLoading, setError } = orderSlice.actions;

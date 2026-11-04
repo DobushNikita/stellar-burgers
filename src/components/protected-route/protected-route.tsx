@@ -1,7 +1,8 @@
-import { getIsAuthChecked, getUser } from '../../services/slices/userSlice';
 import { Preloader } from '@krgaa/react-developer-burger-ui-components';
-import { useSelector } from '../../services/store';
 import { Navigate, useLocation } from 'react-router-dom';
+
+import { getIsAuthChecked, getUser } from '../../services/slices/userSlice';
+import { useSelector } from '../../services/store';
 
 type TProtectedRouteProps = {
   children: React.ReactElement;
@@ -18,7 +19,7 @@ export const ProtectedRoute = ({ children, onlyUnAuth }: TProtectedRouteProps) =
   }
 
   if (!onlyUnAuth && !user) {
-    return <Navigate replace to='/login' state={{ from: location }} />;
+    return <Navigate replace to="/login" state={{ from: location }} />;
   }
 
   if (onlyUnAuth && user) {

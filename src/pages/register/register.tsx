@@ -20,12 +20,12 @@ export const Register = (): React.JSX.Element => {
     return () => {
       dispatch(resetUserError());
     };
-  }, [dispatch])
+  }, [dispatch]);
 
   const handleSubmit = async (e: SyntheticEvent): Promise<void> => {
     e.preventDefault();
 
-   if (isUserLoading) {
+    if (isUserLoading) {
       return;
     }
     await dispatch(registerUser({ email, password, name: userName }));

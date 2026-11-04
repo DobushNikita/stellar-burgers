@@ -1,13 +1,22 @@
-import { BurgerConstructorUI } from '../ui';
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import type { TConstructorIngredient, TConstructorIngredients, TOrder } from '../../utils/types';
-import { useSelector } from '../../services/store';
 import { getConstructorItems } from '../../services/slices/constructorSlice';
-import { clearOrder, getOrderModalData, getOrderRequest, orderBurger } from '../../services/slices/newOrderSlice';
-import { useDispatch } from '../../services/store';
+import {
+  clearOrder,
+  getOrderModalData,
+  getOrderRequest,
+  orderBurger,
+} from '../../services/slices/newOrderSlice';
 import { getUser } from '../../services/slices/userSlice';
+import { useSelector, useDispatch } from '../../services/store';
+import { BurgerConstructorUI } from '../ui';
+
+import type {
+  TConstructorIngredient,
+  TConstructorIngredients,
+  TOrder,
+} from '../../utils/types';
 
 export const BurgerConstructor = (): React.JSX.Element | null => {
   /** TODO: Взять переменные constructorItems, orderRequest и orderModalData из стора */
@@ -31,7 +40,7 @@ export const BurgerConstructor = (): React.JSX.Element | null => {
 
   const closeOrderModal = (): void => {
     // TODO: Закрыть модальное окно и сбросить заказ
-    dispatch(clearOrder())
+    dispatch(clearOrder());
   };
 
   const price = useMemo(

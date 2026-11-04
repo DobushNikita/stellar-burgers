@@ -1,11 +1,16 @@
 import { useEffect } from 'react';
 
-import type { TIngredient } from '../utils/types';
-import { fetchIngredients, getError, getIngredients, getIslodaing } from '../services/slices/ingredientsSlice';
-import { useSelector } from '../services/store';
-import type { SerializedError } from '@reduxjs/toolkit';
-import { useDispatch } from '../services/store';
+import {
+  fetchIngredients,
+  getError,
+  getIngredients,
+  getIsloading,
+} from '../services/slices/ingredientsSlice';
 import { checkUserAuth } from '../services/slices/userSlice';
+import { useSelector, useDispatch } from '../services/store';
+
+import type { TIngredient } from '../utils/types';
+import type { SerializedError } from '@reduxjs/toolkit';
 
 type UseFetchIngredientsResult = {
   ingredients: TIngredient[];
@@ -15,7 +20,7 @@ type UseFetchIngredientsResult = {
 
 export const useFetchIngredients = (): UseFetchIngredientsResult => {
   const ingredients = useSelector(getIngredients);
-  const isIngredientsLoading = useSelector(getIslodaing);
+  const isIngredientsLoading = useSelector(getIsloading);
   const ingredientsError = useSelector(getError);
   const dispatch = useDispatch();
 

@@ -1,8 +1,8 @@
+import { getOrders, getTotal, getTotalToday } from '../../services/slices/feedSlice';
+import { useSelector } from '../../services/store';
 import { FeedInfoUI } from '../ui';
 
 import type { TOrder } from '../../utils/types';
-import { getOrders, getTotal, getTotalToday } from '../../services/slices/feedSlice';
-import { useSelector } from '../../services/store';
 
 const getOrderNumbersByStatus = (orders: TOrder[], status: string): number[] =>
   orders

@@ -1,6 +1,8 @@
-import { getIngredientsApi } from '../../utils/burger-api';
-import type { TIngredientsState } from '../../utils/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+import { getIngredientsApi } from '../../utils/burger-api';
+
+import type { TIngredientsState } from '../../utils/types';
 import type { RootState } from '../store';
 
 const initialState: TIngredientsState = {
@@ -11,8 +13,8 @@ const initialState: TIngredientsState = {
 
 export const fetchIngredients = createAsyncThunk(
   'ingredients/fetchIngredients',
-  getIngredientsApi,
-)
+  getIngredientsApi
+);
 
 const ingredientsSlice = createSlice({
   name: 'ingredients',
@@ -20,7 +22,7 @@ const ingredientsSlice = createSlice({
   reducers: {},
   selectors: {
     getIngredients: (state) => state.ingredients,
-    getIslodaing: (state) => state.isLoading,
+    getIsloading: (state) => state.isLoading,
     getError: (state) => state.error,
   },
   extraReducers: (builder) => {
@@ -36,9 +38,11 @@ const ingredientsSlice = createSlice({
       .addCase(fetchIngredients.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error;
-      })
-  }
-})
+      });
+  },
+});
 
 export const ingredientsReducer = ingredientsSlice.reducer;
-export const { getIngredients, getIslodaing, getError } = ingredientsSlice.getSelectors((state: RootState) => state.ingredients);
+export const { getIngredients, getIsloading, getError } = ingredientsSlice.getSelectors(
+  (state: RootState) => state.ingredients
+);

@@ -17,23 +17,24 @@ export const Login = (): React.JSX.Element => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = (location.state as { from?: { pathname?: string } } | null)?.from?.pathname ?? '/';
+  const from =
+    (location.state as { from?: { pathname?: string } } | null)?.from?.pathname ?? '/';
 
   useEffect(() => {
     return () => {
       dispatch(resetUserError());
     };
-  }, [dispatch])
+  }, [dispatch]);
 
   const handleSubmit = async (e: SyntheticEvent): Promise<void> => {
     e.preventDefault();
 
-     if (isUserLoading) {
+    if (isUserLoading) {
       return;
     }
 
     try {
-      await dispatch(loginUser({ email, password })).unwrap()
+      await dispatch(loginUser({ email, password })).unwrap();
 
       navigate(from, { replace: true });
     } catch (error) {

@@ -1,10 +1,11 @@
-import { IngredientsCategoryUI } from '../ui';
 import { useMemo } from 'react';
 
-import type { TIngredientsCategoryProps } from './type';
-import type { TConstructorIngredients, TIngredient } from '../../utils/types';
-import { useSelector } from '../../services/store';
 import { getConstructorItems } from '../../services/slices/constructorSlice';
+import { useSelector } from '../../services/store';
+import { IngredientsCategoryUI } from '../ui';
+
+import type { TConstructorIngredients, TIngredient } from '../../utils/types';
+import type { TIngredientsCategoryProps } from './type';
 
 export const IngredientsCategory = ({
   title,

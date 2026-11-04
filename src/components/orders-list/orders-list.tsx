@@ -1,5 +1,6 @@
-import { OrdersListUI } from '../ui';
 import { memo } from 'react';
+
+import { OrdersListUI } from '../ui';
 
 import type { OrdersListProps } from './type';
 

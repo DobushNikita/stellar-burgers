@@ -1,7 +1,13 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { TConstructorIngredient, TConstructorState, TIngredient } from '../../utils/types.ts';
-import type { RootState } from '../store.ts';
+
 import { orderBurger } from './newOrderSlice.ts';
+
+import type {
+  TConstructorIngredient,
+  TConstructorState,
+  TIngredient,
+} from '../../utils/types.ts';
+import type { RootState } from '../store.ts';
 
 const initialState: TConstructorState = {
   constructorItems: {
@@ -34,17 +40,24 @@ const constructorSlice = createSlice({
       }),
     },
     removeIngredient: (state, action: PayloadAction<string>) => {
-      state.constructorItems.ingredients = state.constructorItems.ingredients.filter(item => item.id !== action.payload);
+      state.constructorItems.ingredients = state.constructorItems.ingredients.filter(
+        (item) => item.id !== action.payload
+      );
     },
-    moveIngredient: (state, action: PayloadAction<{ direction: 'up' | 'down', id: string }>) => {
+    moveIngredient: (
+      state,
+      action: PayloadAction<{ direction: 'up' | 'down'; id: string }>
+    ) => {
       const newIngredients = [...state.constructorItems.ingredients];
-      const { id, direction } = action.payload
+      const { id, direction } = action.payload;
 
-      const index = newIngredients.findIndex(item => item.id === id);
+      const index = newIngredients.findIndex((item) => item.id === id);
 
-      if (index === -1
-        || index === 0 && direction === 'up'
-        || index === newIngredients.length - 1 && direction === 'down')
+      if (
+        index === -1 ||
+        (index === 0 && direction === 'up') ||
+        (index === newIngredients.length - 1 && direction === 'down')
+      )
         return;
 
       const target = newIngredients[index];
@@ -68,10 +81,13 @@ const constructorSlice = createSlice({
     builder.addCase(orderBurger.fulfilled, (state) => {
       state.constructorItems.bun = null;
       state.constructorItems.ingredients = [];
-    })
-  }
-})
+    });
+  },
+});
 
-export const { getConstructorItems } = constructorSlice.getSelectors((state: RootState) => state.burgerConstructor);
+export const { getConstructorItems } = constructorSlice.getSelectors(
+  (state: RootState) => state.burgerConstructor
+);
 export const constructorReducer = constructorSlice.reducer;
-export const { addBun, removeBun, addIngredient, removeIngredient, moveIngredient } = constructorSlice.actions;
+export const { addBun, removeBun, addIngredient, removeIngredient, moveIngredient } =
+  constructorSlice.actions;
