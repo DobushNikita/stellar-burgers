@@ -13,7 +13,7 @@ import {
   registerUserApi,
   updateUserApi,
 } from '../../utils/burger-api';
-import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
+import { deleteCookie, setCookie } from '../../utils/cookie';
 
 import type { TLoginData, TRegisterData } from '../../utils/burger-api';
 import type { TUser, TUserState } from '../../utils/types';
@@ -43,19 +43,17 @@ export const logout = createAsyncThunk('user/logout', async () => {
 
 export const checkUserAuth = createAsyncThunk(
   'user/checkUserAuth',
-  async (_, { dispatch }) => {
-    if (getCookie('accessToken')) {
-      try {
-        const { user } = await getUserApi();
-        dispatch(setUser(user));
-      } catch (error) {
-        console.error(error);
-      } finally {
-        dispatch(authChecked());
-      }
-    } else {
-      dispatch(authChecked());
+     async (_, { rejectWithValue }) => {
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    // Если нет refreshToken, пользователь не был авторизован — сразу отклоняем
+    if (!refreshToken) {
+      return rejectWithValue('No refresh token found');
     }
+
+    // Запрашиваем данные пользователя: getUserApi использует fetchWithRefresh, 
+    // который сам обновит accessToken через refreshToken, если кука истекла
+    return await getUserApi();
   }
 );
 
@@ -111,6 +109,21 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(checkUserAuth.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(checkUserAuth.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.isAuthChecked = true;
+        state.isLoading = false;
+      })
+      .addCase(checkUserAuth.rejected, (state, action) => {
+        state.user = null;
+        state.isAuthChecked = true;
+        state.isLoading = false;
+        state.error = (action.payload as string) || action.error.message || null;
+      })
       .addCase(fetchUserOrders.pending, (state) => {
         state.isOrdersLoading = true;
       })
@@ -120,6 +133,12 @@ const userSlice = createSlice({
       })
       .addCase(fetchUserOrders.rejected, (state) => {
         state.isOrdersLoading = false;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.user = null;
+        state.orders = [];
+        state.isLoading = false;
+        state.error = null;
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;

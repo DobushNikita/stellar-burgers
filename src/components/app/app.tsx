@@ -81,61 +81,28 @@ const RouteComponent = (): React.JSX.Element => {
   const closeModal = (): void => {
     navigate(-1);
   };
+
   return (
     <>
       <Routes location={background || location}>
         <Route path="/" element={<ConstructorPage />} />
         <Route path="/feed" element={<Feed />} />
-        <Route
-          path="/login"
-          element={
-            <ProtectedRoute onlyUnAuth>
-              <Login />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <ProtectedRoute onlyUnAuth>
-              <Register />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/forgot-password"
-          element={
-            <ProtectedRoute onlyUnAuth>
-              <ForgotPassword />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/reset-password"
-          element={
-            <ProtectedRoute onlyUnAuth>
-              <ResetPassword />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/profile/orders"
-          element={
-            <ProtectedRoute>
-              <ProfileOrders />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route path="/feed/:number" element={<OrderInfo />} />
+        <Route path="/login" element={<ProtectedRoute onlyUnAuth><Login /></ProtectedRoute>}/>
+        <Route path="/register" element={<ProtectedRoute onlyUnAuth><Register /></ProtectedRoute>}/>
+        <Route path="/forgot-password" element={<ProtectedRoute onlyUnAuth><ForgotPassword /></ProtectedRoute>}/>
+        <Route path="/reset-password" element={<ProtectedRoute onlyUnAuth><ResetPassword /></ProtectedRoute>}/>
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>}/>
+        <Route path="/profile/orders" element={<ProtectedRoute><ProfileOrders /></ProtectedRoute>}/>
+        <Route 
+          path="/feed/:number" 
+          element={ 
+                    <div className={styles.detailPageWrap}>
+                      <h1 className={`text text_type_main-large ${styles.detailHeader}`}>
+                      {orderTitle}
+                      </h1>
+                      <OrderInfo />
+                    </div>
+                  } />
         <Route
           path="/ingredients/:id"
           element={
