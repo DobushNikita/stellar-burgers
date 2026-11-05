@@ -1,6 +1,7 @@
-import { ModalUI } from '@ui';
 import { memo, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+
+import { ModalUI } from '../ui';
 
 import type { TModalProps } from './type';
 
