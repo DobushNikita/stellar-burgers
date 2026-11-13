@@ -140,12 +140,6 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = null;
       })
-      .addCase(logout.fulfilled, (state) => {
-        state.user = null;
-        state.orders = [];
-        state.isLoading = false;
-        state.error = null;
-      })
       .addMatcher(
         isAnyOf(loginUser.pending, registerUser.pending, updateUser.pending),
         (state) => {

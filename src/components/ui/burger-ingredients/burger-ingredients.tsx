@@ -21,7 +21,7 @@ export const BurgerIngredientsUI = memo(function BurgerIngredientsUI({
 }: BurgerIngredientsUIProps): React.JSX.Element {
   return (
     <>
-      <section className={styles.burger_ingredients}>
+      <section data-testid="constructor-ingredients" className={styles.burger_ingredients}>
         <nav>
           <ul className={styles.menu}>
             <Tab value="bun" active={currentTab === 'bun'} onClick={onTabClick}>
