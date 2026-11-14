@@ -19,9 +19,9 @@ export const BurgerConstructorUI = ({
   onOrderClick,
   closeOrderModal,
 }: BurgerConstructorUIProps): React.JSX.Element => (
-  <section className={styles.burger_constructor}>
+  <section data-testid="constructor" className={styles.burger_constructor}>
     {constructorItems.bun ? (
-      <div className={`${styles.element} mb-4 mr-4`}>
+      <div data-testid="constructor-bun-1" className={`${styles.element} mb-4 mr-4`}>
         <ConstructorElement
           type="top"
           isLocked
@@ -56,7 +56,7 @@ export const BurgerConstructorUI = ({
       )}
     </ul>
     {constructorItems.bun ? (
-      <div className={`${styles.element} mt-4 mr-4`}>
+      <div data-testid="constructor-bun-2" className={`${styles.element} mt-4 mr-4`}>
         <ConstructorElement
           type="bottom"
           isLocked
@@ -72,7 +72,7 @@ export const BurgerConstructorUI = ({
         Выберите булки
       </div>
     )}
-    <div className={`${styles.total} mt-10 mr-4`}>
+    <div data-testid="order-summ" className={`${styles.total} mt-10 mr-4`}>
       <div className={`${styles.cost} mr-10`}>
         <p className={`text ${styles.text} mr-2`}>{price}</p>
         <CurrencyIcon type="primary" />
