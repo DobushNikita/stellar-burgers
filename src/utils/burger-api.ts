@@ -25,7 +25,7 @@ const toApiError = (payload: unknown): Error => {
       ? (payload as { message: string }).message
       : 'Не удалось выполнить запрос к серверу';
 
-  return new Error(message, { cause: payload });
+  return new Error(message);
 };
 
 type TRefreshResponse = TServerResponse<{

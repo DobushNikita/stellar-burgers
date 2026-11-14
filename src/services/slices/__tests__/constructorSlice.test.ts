@@ -115,7 +115,7 @@ describe('редьюсер burgerConstructor', () => {
 
   it('addBun заменяет уже выбранную булку', (): void => {
     const action = addBun(anotherBun);
-    const state = constructorReducer(filledState, addBun(anotherBun));
+    const state = constructorReducer(filledState, action);
 
     expect(state.constructorItems.bun).toEqual({
       ...anotherBun,

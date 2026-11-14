@@ -81,8 +81,8 @@ const addIngredient = async (page: Page, name: string): Promise<void> => {
 const openIngredientDetails = async (
   page: Page,
   ingredient: Ingredient
-): Promise<void> => {
-  await ingredientCard(page, ingredient.name).getByRole('link').click();
+  ): Promise<void> => {
+    await ingredientCard(page, ingredient.name).getByRole('link').click();
 
 const modal = page.locator('#modals');
   await expect(modal.getByRole('heading', { name: 'Детали ингредиента' })).toBeVisible();
