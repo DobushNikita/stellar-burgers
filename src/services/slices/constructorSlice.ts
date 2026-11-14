@@ -1,13 +1,13 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { orderBurger } from './newOrderSlice.ts';
+import { orderBurger } from './newOrderSlice';
 
 import type {
   TConstructorIngredient,
   TConstructorState,
   TIngredient,
-} from '../../utils/types.ts';
-import type { RootState } from '../store.ts';
+} from '../../utils/types';
+import type { RootState } from '../store';
 
 const initialState: TConstructorState = {
   constructorItems: {

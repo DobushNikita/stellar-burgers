@@ -43,7 +43,7 @@ export const logout = createAsyncThunk('user/logout', async () => {
 
 export const checkUserAuth = createAsyncThunk(
   'user/checkUserAuth',
-     async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     const refreshToken = localStorage.getItem('refreshToken');
 
     // Если нет refreshToken, пользователь не был авторизован — сразу отклоняем
@@ -51,7 +51,7 @@ export const checkUserAuth = createAsyncThunk(
       return rejectWithValue('No refresh token found');
     }
 
-    // Запрашиваем данные пользователя: getUserApi использует fetchWithRefresh, 
+    // Запрашиваем данные пользователя: getUserApi использует fetchWithRefresh,
     // который сам обновит accessToken через refreshToken, если кука истекла
     return await getUserApi();
   }
@@ -133,12 +133,6 @@ const userSlice = createSlice({
       })
       .addCase(fetchUserOrders.rejected, (state) => {
         state.isOrdersLoading = false;
-      })
-      .addCase(logout.fulfilled, (state) => {
-        state.user = null;
-        state.orders = [];
-        state.isLoading = false;
-        state.error = null;
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
